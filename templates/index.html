@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robot Grid Navigation</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: #f4f6f8;
+            margin: 0;
+            padding: 40px;
+        }
+
+        h1 {
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        .grid {
+            display: inline-grid;
+            grid-template-columns: repeat(5, 60px);
+            gap: 5px;
+            margin: 20px;
+        }
+
+        .cell {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 20px;
+            background: white;
+            border: 1px solid #ccc;
+        }
+
+        .start {
+            background: #90ee90;
+        }
+
+        .goal {
+            background: #ffcc80;
+        }
+
+        .obstacle {
+            background: #333;
+            color: white;
+        }
+
+        .path {
+            background: #ffd54f;
+        }
+
+        button {
+            padding: 12px 25px;
+            font-size: 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+        }
+
+        .result {
+            margin-top: 25px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>🤖 Robot Grid Navigation</h1>
+
+    <p class="subtitle">
+        Breadth-First Search (BFS) Path Finding
+    </p>
+
+    <form method="POST">
+        <button type="submit">Find Shortest Path</button>
+    </form>
+
+    <div class="grid">
+        {% for row in grid %}
+            {% for cell in row %}
+                <div class="cell
+                    {% if cell == 'S' %}start
+                    {% elif cell == 'G' %}goal
+                    {% elif cell == '#' %}obstacle
+                    {% elif cell == '*' %}path
+                    {% endif %}">
+                    {{ cell }}
+                </div>
+            {% endfor %}
+        {% endfor %}
+    </div>
+
+    {% if result %}
+    <div class="result">
+        <p><strong>Algorithm:</strong> BFS</p>
+        <p><strong>Path Found:</strong> {{ result.path_found }}</p>
+        <p><strong>Path Length:</strong> {{ result.path_length }}</p>
+        <p><strong>Nodes Expanded:</strong> {{ result.nodes_expanded }}</p>
+    </div>
+    {% endif %}
+
+</body>
+</html>
