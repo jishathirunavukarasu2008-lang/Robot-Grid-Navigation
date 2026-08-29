@@ -1,99 +1,113 @@
-# 🤖 Robot Grid Navigation Using BFS
+# Robot Grid Navigation Using BFS
 
-## 1. Project Overview
+## 1. Introduction
 
-This project demonstrates how a robot can navigate a two-dimensional grid using an Artificial Intelligence search algorithm.
+Robot Grid Navigation is an Artificial Intelligence search problem in which a robot must find a path from a starting position to a destination while avoiding obstacles.
 
-The robot starts from an initial position and must reach a destination while avoiding obstacles.
-
-Breadth-First Search (BFS) is used to explore the grid and find the shortest path.
-
----
+This project models robot movement as a state-space search problem and uses Breadth-First Search (BFS) to find a shortest path.
 
 ## 2. Problem Statement
 
-A robot must find its way from a starting position to a destination on a grid containing obstacles.
+A robot is placed on a two-dimensional grid containing free cells and obstacles.
 
-The robot can move:
+The robot must navigate from the starting position `S` to the destination `G` without passing through obstacles.
 
-- Up
-- Down
-- Left
-- Right
+The objective is to find a valid and shortest path.
 
-The robot cannot move through obstacle cells.
+## 3. AI Search Problem Formulation
 
----
-
-## 3. AI Problem Formulation
-
-The robot navigation problem is represented as a search problem.
+The robot navigation problem is represented using:
 
 | Component | Description |
 |---|---|
-| Initial State | Robot's starting position |
-| State | Robot's current grid position |
-| Actions | Up, Down, Left, Right |
-| Transition | Movement to a valid neighbouring cell |
-| Obstacles | Blocked cells |
-| Goal State | Destination position |
-| Goal Test | Check whether robot reached destination |
-| Path Cost | Number of movements |
-| Search Algorithm | Breadth-First Search |
+| Initial State | Robot's starting cell `S` |
+| Goal State | Destination cell `G` |
+| States | Valid positions of the robot |
+| Actions | Move Up, Down, Left, or Right |
+| Transition Model | Move to a valid neighbouring cell |
+| Path Cost | 1 for each movement |
+| Search Algorithm | Breadth-First Search (BFS) |
 
----
+## 4. Why BFS?
 
-## 4. Algorithm
+Breadth-First Search explores the grid level by level.
 
-Breadth-First Search (BFS) explores the grid level by level.
+Since every robot movement has the same cost, BFS guarantees that the first path found to the goal is a shortest path.
 
-A queue is used to store cells that need to be explored.
+## 5. Grid Representation
 
-The algorithm also maintains:
+Example:
 
-- Visited cells
-- Parent information
-- Explored states
+    S . . # .
+    . # . # .
+    . # . . .
+    . . # # .
+    . . . . G
 
-The parent information is used to reconstruct the final path.
+Where:
 
----
+- `S` = Starting position
+- `G` = Goal position
+- `#` = Obstacle
+- `.` = Free cell
+- `*` = Path found by BFS
 
-## 5. Features
+## 6. Example Result
 
-- Grid-based robot navigation
-- Obstacles
-- BFS shortest-path search
-- No-path detection
-- Path reconstruction
-- Runtime measurement
-- Automated testing
-- Experimental evaluation
-- Basic graphical interface
+For the obstacle grid, BFS successfully finds a path.
 
----
+    S . . # .
+    * # . # .
+    * # . . .
+    * . # # .
+    * * * * G
 
-## 6. Project Structure
+Search results:
 
-```text
-Robot-Grid-Navigation
-│
-├── docs
-│   ├── problem_formulation.md
-│   ├── bfs_algorithm.md
-│   ├── complexity.md
-│   ├── results.md
-│   └── reflection.md
-│
-├── src
-│   ├── bfs.py
-│   ├── main.py
-│   ├── experiments.py
-│   └── visualizer.py
-│
-├── tests
-│   └── test_bfs.py
-│
-├── README.md
-├── requirements.txt
-└── .gitignore
+- Algorithm: BFS
+- Path Found: Yes
+- Path Length: 8
+- Nodes Expanded: 18
+
+## 7. Experiments
+
+Three grid configurations were tested.
+
+| Experiment | Grid Type | Path Found | Path Length | Nodes Expanded |
+|---|---|---|---:|---:|
+| 1 | Simple Grid | Yes | 6 | 14 |
+| 2 | Obstacle Grid | Yes | 8 | 17 |
+| 3 | No Path Grid | No | N/A | 1 |
+
+## 8. Project Structure
+
+    Robot-Grid-Navigation/
+    │
+    ├── docs/
+    │   ├── problem_formulation.md
+    │   ├── bfs_algorithm.md
+    │   ├── complexity.md
+    │   ├── results.md
+    │   ├── reflection.md
+    │   ├── flowchart.md
+    │   └── bfs_nodes_expanded.png
+    │
+    ├── src/
+    │   ├── main.py
+    │   ├── bfs.py
+    │   ├── experiments.py
+    │   └── plot_results.py
+    │
+    └── tests/
+
+## 9. Testing
+
+The project includes automated tests to verify the BFS implementation.
+
+All tests pass successfully.
+
+## 10. Conclusion
+
+The project demonstrates how a real-world robot navigation problem can be formulated as an Artificial Intelligence search problem.
+
+BFS successfully finds the shortest path when a path exists and correctly identifies cases where the destination cannot be reached.
